@@ -6,7 +6,7 @@ export default async function handler(req, res){
   if(req.method !== 'POST') return res.status(405).end();
 
   const { email, password, is_admin } = req.body;
-  const checkUser = await db('users').where({ email }).first();
+  const checkUser = await db('users').where({ email })
   if(!checkUser) return res.status(401).end();
   const comparePass = await bcrypt.compareSync(password, checkUser.password);
   if(!comparePass) return res.status(401).end();
